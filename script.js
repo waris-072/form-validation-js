@@ -1,31 +1,56 @@
-document.getElementById("btn").addEventListener("click", function(e){
+let form = document.getElementById("form");
+form.addEventListener("submit", function(e){
             e.preventDefault();
 
-            let name = document.getElementById("name").value.trim();
-            let password = document.getElementById("password").value.trim();
-            let email = document.getElementById("email").value.trim();
+            let nameInput = document.getElementById("name");
+            let name = nameInput.value.trim();
+            let passwordInput = document.getElementById("password");
+            let password = passwordInput.value.trim();
+            let emailInput = document.getElementById("email");
+            let email = emailInput.value.trim();
+
             let errorMsg = document.getElementById("msg");
-            errorMsg.innerText = "";
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let isValid = true;
             
+            clearErrors();
             
-            if(name == "" || password == "" || email ==  ""){
-                errorMsg.innerText = "All fields are required!"
-                errorMsg.style.color = "red";
-                return;
+            if(name == ""){
+               showError(nameInput,"Name is required");
+               isValid = false;
             }
 
             if(password.length < 6){
-                errorMsg.innerText = "Password must be 6+ long!";
-                errorMsg.style.color = "red";
-                return;
+                showError(passwordInput, "Password must be 6+chars");
+                isValid = false; 
             }
-            if(!email.includes("@") || !email.includes(".")){
-                errorMsg.innerText = "Enter the valid email address!"
-                errorMsg.style.color = "red";
-                return;
+            if(!emailPattern.test(email)){
+                showError(emailInput,"Enter valid email");
+                isValid = false;
             }
 
-            errorMsg.innerText = "form submitted!"
-            errorMsg.style.color = "green"
-            return;
+            if(isValid){
+            errorMsg.innerText = "form submitted!";
+            errorMsg.style.color = "white";
+            errorMsg.style.textShadow = "0 1px 2px green";
+            form.reset();
+            }
         });
+
+        function showError(input, message){
+                input.style.border = "2px solid red";
+
+                const error = input.nextElementSibling;
+                if(error){
+                    error.innerText = message;}
+        }
+
+        function clearErrors(){
+                const inputs = document.querySelectorAll("input");
+                inputs.forEach(input =>{
+                    input.style.border = "";
+                    if(input.nextElementSibling){
+                    input.nextElementSibling.innerText = "";
+                    }
+                })
+        }
