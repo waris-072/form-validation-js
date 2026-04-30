@@ -43,6 +43,7 @@ passwordInput.addEventListener("input", function(){
         showSuccess(passwordInput);
         state.password = true;
     }
+    confirmInput.dispatchEvent(new Event("input"));
     checkForm();
 });
 
