@@ -40,6 +40,9 @@ body{
             height: 30px;
             border-radius: 5px;
         }
+        #form input:focus{
+            outline: none;
+        }
         #form #msg{
             margin: 10px auto;
             font-weight: bold;
@@ -53,9 +56,23 @@ body{
             border-radius: 5px;
             color: black;
             font-weight: bold;
+            scale: 0.99;
+             transition: all 0.2s ease-in-out;
+        }
+        #form #btn:hover{
+            scale: 1.01;
+            background: rgb(255, 240, 240);
+        }
+        #form #btn:active{
+            scale: 0.99;
+            background: white;
         }
         .error {
     color: rgb(255, 255, 255);
     display: block; 
     margin-bottom: 10px;
+}
+button:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
 }
